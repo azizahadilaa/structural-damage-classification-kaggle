@@ -59,6 +59,7 @@ Training memakan waktu beberapa menit hingga belasan menit tergantung CPU.
    - `GeoStatsTransformer`: rata-rata karakteristik bangunan per ward dan per vdcmun (di-fit hanya di train, tanpa label).
    - `NeighborTargetFeatures`: fitur dari `damage_grade` bangunan dengan `building_id` berdekatan (lihat bagian Interpretasi).
 4. **Model**: `LGBMClassifier` (700 pohon, lr 0.05, 127 leaves, subsample 0.8, colsample 0.6, lambda 2).
+   - Klasifikasi 5 kelas ditangani langsung oleh LightGBM dengan objektif multiclass (softmax), bukan dengan dekomposisi One-vs-All atau One-vs-One; probabilitas tiap kelas kemudian diberi bobot untuk memaksimalkan     macro F1.
 5. **Optimasi keputusan**: bobot probabilitas per kelas yang dicari pada data validasi untuk memaksimalkan **macro F1**.
 6. **Evaluasi**: stratified hold-out 80/20; classification report dan confusion matrix di `02_modeling.ipynb`.
 
